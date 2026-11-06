@@ -1,0 +1,44 @@
+{
+  "name": "steelmast-auditoria-5s",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "next build",
+    "start": "next start --hostname 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "test:e2e": "playwright test",
+    "db:migrate": "node --import tsx scripts/migrate.ts",
+    "db:bootstrap": "node --import tsx scripts/bootstrap.ts",
+    "import:history": "node --import tsx scripts/import-history.ts",
+    "check:secrets": "node scripts/check-secrets.mjs",
+    "check": "npm run typecheck && npm test && npm run check:secrets",
+    "dev:preview": "node --import tsx scripts/dev-preview.ts",
+    "db:reset-master": "node --import tsx scripts/reset-master.ts"
+  },
+  "dependencies": {
+    "csv-parse": "7.0.3",
+    "lucide-react": "^0.468.0",
+    "next": "16.4.5",
+    "pg": "^8.16.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.15",
+    "@electric-sql/pglite-socket": "^0.2.18",
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^22.19.0",
+    "@types/pg": "^8.15.6",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

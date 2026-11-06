@@ -1,0 +1,40 @@
+Você está no meu Chrome, com acesso autorizado ao painel Neon. Estou preparando o sistema de Auditoria 5S da SteelMast em Next.js para a Vercel.
+
+Faça somente uma conferência de leitura. Não altere configurações, não execute migrações, não importe dados, não crie ou exclua recursos e não redefina senhas.
+
+1. Identifique o projeto Neon destinado à Auditoria 5S da SteelMast. Se houver mais de um candidato e não existir evidência para escolher, apresente os nomes e peça que eu indique o correto.
+
+2. Colete: nome do projeto, região, nome do branch, nome do banco, nome do usuário/role, versão PostgreSQL, estado do endpoint/compute e se existe alguma restrição de acesso por IP ou rede. Informe se a conexão selecionada é pooled ou direta.
+
+3. Confira a conexão destinada ao Next.js na Vercel. Informe host, porta, banco, usuário e parâmetros de TLS. Se apresentar uma URL, substitua obrigatoriamente a senha por [OCULTA]. Não copie a senha, não a leia em voz alta, não a envie no relatório e não exponha tokens, API keys, cookies ou valores de variáveis secretas.
+
+4. No SQL Editor, selecione explicitamente o branch e banco corretos e execute somente as consultas SELECT abaixo, se esse recurso estiver disponível:
+
+SELECT current_database() AS banco, current_user AS usuario, version() AS versao;
+
+SELECT schema_name
+FROM information_schema.schemata
+WHERE schema_name NOT IN ('pg_catalog', 'information_schema')
+ORDER BY schema_name;
+
+SELECT table_schema, table_name
+FROM information_schema.tables
+WHERE table_schema NOT IN ('pg_catalog', 'information_schema')
+ORDER BY table_schema, table_name;
+
+SELECT has_database_privilege(current_user, current_database(), 'CREATE') AS pode_criar_schema;
+
+Se o schema sm5s já existir, confira somente nomes de tabelas e estrutura. Não abra linhas de users ou sessions: elas contêm hashes e informações de acesso. Não consulte dados pessoais ou segredos.
+
+5. Informe se há sinal de banco pausado/indisponível, endpoint incorreto, branch diferente, erro de conexão ou limite do plano atingido. Diferencie o que foi observado do que é apenas hipótese. Não tente contornar bloqueios de rede ou avisos de segurança.
+
+Ao final, entregue um relatório curto com:
+- Projeto, branch, banco e região conferidos.
+- Host pooled e host direto, se ambos estiverem disponíveis.
+- Usuário/role, TLS e resultado da conexão SELECT.
+- Se sm5s existe e quais tabelas já estão presentes.
+- Permissão para criar schema.
+- Restrições ou erros observados, com a mensagem sem segredos.
+- Nenhuma senha, token, cookie ou chave.
+
+O projeto Next.js já inclui as migrações do schema sm5s, o bootstrap de jeffersonw078@gmail.com e o importador. Não execute essas ações nesta conferência. O objetivo agora é devolver as informações técnicas para validar o destino e orientar a aplicação segura do projeto.
